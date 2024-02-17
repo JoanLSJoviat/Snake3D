@@ -4,18 +4,21 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 
+
 public class SnakeController : MonoBehaviour
 {
     [SerializeField] private float moveSpeed;
     [SerializeField] private float bodySpeed;
     [SerializeField] private float steerSpeed;
     [SerializeField] private GameObject  bodyPrefab;
+    [SerializeField] private GameManager _gm;
+    
 
     private int gap = 10;
     private List<GameObject> bodyParts = new List<GameObject>();
     private List<Vector3> positionHistory = new List<Vector3>();
-
-  
+    private bool _gameOver;
+    private PlayerController _playerController; 
     void Start()
     {
         GrowSnake();
@@ -25,33 +28,46 @@ public class SnakeController : MonoBehaviour
         GrowSnake();
         GrowSnake();
         GrowSnake();
+        GrowSnake();
+        GrowSnake();
+        GrowSnake();
+        GrowSnake();
+        GrowSnake();
+        GrowSnake();
+        GrowSnake();
+        GrowSnake();
+        GrowSnake();
+        GrowSnake();
+        GrowSnake();
+        _gameOver = false;
+        _playerController = GetComponent<PlayerController>();
         
-        //positionHistory.Insert(0, transform.position);
         InvokeRepeating("UpdatePositionHistory", 0f, 0.01f);
         
     }
     
     void Update()
     {
-        //move forward
-        transform.position += transform.forward * moveSpeed * Time.deltaTime;
-        
-        //steer
-        float steerDirection = Input.GetAxis("Horizontal");
-        transform.Rotate(Vector3.up * steerDirection * steerSpeed * Time.deltaTime);
-      
-      
-        
-        int index = 0;
-        foreach (GameObject body in bodyParts)
+        if (!_gameOver)
         {
-            Vector3 point = positionHistory[Math.Min(index*10, positionHistory.Count-1)];
-            Vector3 moveDirection = point - body.transform.position;
-            body.transform.position += moveDirection * bodySpeed * Time.deltaTime;
+            //move forward
+            transform.position += transform.forward * moveSpeed * Time.deltaTime;
+        
+            //steer
+            float steerDirection = Input.GetAxis("Horizontal");
+            transform.Rotate(Vector3.up * steerDirection * steerSpeed * Time.deltaTime);
+      
+            int index = 0;
+            foreach (GameObject body in bodyParts)
+            {
+                Vector3 point = positionHistory[Math.Min(index*10, positionHistory.Count-1)];
+                Vector3 moveDirection = point - body.transform.position;
+                body.transform.position += moveDirection * bodySpeed * Time.deltaTime;
 
-            body.transform.LookAt(point);
+                body.transform.LookAt(point);
             
-            index++;
+                index++;
+            }
         }
         
     }
@@ -82,18 +98,15 @@ public class SnakeController : MonoBehaviour
             Destroy(other.gameObject);
             Debug.Log("Food detected");
             GrowSnake();
-            GrowSnake();
-            GrowSnake();
+            _gm.addScore();
         }
 
-        if (other.CompareTag("Margin"))
+        if (other.CompareTag("Margin") || other.CompareTag("Body"))
         {
-            Debug.Log("die");
-        }
-        
-        if (other.CompareTag("Body"))
-        {
-            Debug.Log("BODY-die");
+            _gameOver = true;
+            Destroy(_playerController);
+            _gm.setUpGameOver();
+
         }
     }
 }

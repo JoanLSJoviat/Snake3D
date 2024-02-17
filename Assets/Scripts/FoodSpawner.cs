@@ -8,6 +8,7 @@ public class FoodSpawner : MonoBehaviour
     [SerializeField] private float spawnTime;
     [SerializeField] private float timer;
     [SerializeField] private GameObject cube;
+    [SerializeField] private GameManager _gm;
     [SerializeField] private GameObject foodParent;
     // Start is called before the first frame update
     void Start()
@@ -20,7 +21,7 @@ public class FoodSpawner : MonoBehaviour
     {
         timer += Time.deltaTime;
 
-        if (timer >= spawnTime)
+        if (timer >= spawnTime && !_gm.gameOver)
         {
             SpawnFood();
         }
