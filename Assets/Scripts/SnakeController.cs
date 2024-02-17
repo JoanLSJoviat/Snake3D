@@ -14,7 +14,8 @@ public class SnakeController : MonoBehaviour
     private int gap = 10;
     private List<GameObject> bodyParts = new List<GameObject>();
     private List<Vector3> positionHistory = new List<Vector3>();
-    
+
+  
     void Start()
     {
         GrowSnake();
@@ -38,6 +39,8 @@ public class SnakeController : MonoBehaviour
         //steer
         float steerDirection = Input.GetAxis("Horizontal");
         transform.Rotate(Vector3.up * steerDirection * steerSpeed * Time.deltaTime);
+      
+      
         
         int index = 0;
         foreach (GameObject body in bodyParts)
@@ -50,11 +53,7 @@ public class SnakeController : MonoBehaviour
             
             index++;
         }
-
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            GrowSnake();
-        }
+        
     }
     
     void UpdatePositionHistory()
