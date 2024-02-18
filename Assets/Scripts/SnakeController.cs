@@ -23,22 +23,7 @@ public class SnakeController : MonoBehaviour
     {
         GrowSnake();
         GrowSnake();
-        GrowSnake();
-        GrowSnake();
-        GrowSnake();
-        GrowSnake();
-        GrowSnake();
-        GrowSnake();
-        GrowSnake();
-        GrowSnake();
-        GrowSnake();
-        GrowSnake();
-        GrowSnake();
-        GrowSnake();
-        GrowSnake();
-        GrowSnake();
-        GrowSnake();
-        GrowSnake();
+      
         _gameOver = false;
         _playerController = GetComponent<PlayerController>();
         
@@ -106,6 +91,7 @@ public class SnakeController : MonoBehaviour
             _gameOver = true;
             Destroy(_playerController);
             _gm.setUpGameOver();
+            
 
         }
     }

@@ -6,16 +6,18 @@ using UnityEngine.UIElements;
 using UnityEngine.UI;
 public class GameManager : MonoBehaviour
 {
-    private int score;
+    private int _score;
+    private int _bestScore;
     [SerializeField] private TMP_Text lbl_Score;
     public bool gameOver;
 
     // Start is called before the first frame update
     void Start()
     {
-        score = 0;
-        lbl_Score.text = "Score: " + score;
+        _score = 0;
+        lbl_Score.text = "Score: " + _score;
         gameOver = false;
+        _bestScore = PlayerPrefs.GetInt("bestScore");
     }
 
     // Update is called once per frame
@@ -26,12 +28,17 @@ public class GameManager : MonoBehaviour
 
     public void addScore()
     {
-        score++;
-        lbl_Score.text = "Score: " + score;
+        _score++;
+        lbl_Score.text = "Score: " + _score;
     }
 
     public void setUpGameOver()
     {
         gameOver = true;
+
+        if (_score > _bestScore)
+        {
+            PlayerPrefs.SetInt("bestScore", _score);   
+        }
     }
 }
