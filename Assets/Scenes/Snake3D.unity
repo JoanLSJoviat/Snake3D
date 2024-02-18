@@ -133,7 +133,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 628981134778137955, guid: 47a828aa30ff69242af66231fca39a9f, type: 3}
       propertyPath: m_Intensity
-      value: 1.3
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3064163954114282004, guid: 47a828aa30ff69242af66231fca39a9f, type: 3}
       propertyPath: m_Name
@@ -1112,6 +1112,7 @@ MonoBehaviour:
   bodySpeed: 5
   steerSpeed: 200
   bodyPrefab: {fileID: 7697594874439055314, guid: f8812d324e9097e46be9672141e25d60, type: 3}
+  bodyParent: {fileID: 296880554}
   _gm: {fileID: 2086118888}
 --- !u!1 &1324334398
 GameObject:

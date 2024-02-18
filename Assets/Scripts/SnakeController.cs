@@ -11,6 +11,7 @@ public class SnakeController : MonoBehaviour
     [SerializeField] private float bodySpeed;
     [SerializeField] private float steerSpeed;
     [SerializeField] private GameObject  bodyPrefab;
+    [SerializeField] private GameObject  bodyParent;
     [SerializeField] private GameManager _gm;
     
 
@@ -21,6 +22,8 @@ public class SnakeController : MonoBehaviour
     private PlayerController _playerController; 
     void Start()
     {
+        GrowSnake();
+        GrowSnake();
         GrowSnake();
         GrowSnake();
       
@@ -72,6 +75,7 @@ public class SnakeController : MonoBehaviour
 
     private void GrowSnake()
     {
+      //  Vector3 pos = new Vector3(transform.position.x, transform.position.y, transform.position.z);
         GameObject body = Instantiate(bodyPrefab);
         bodyParts.Add(body);
     }
